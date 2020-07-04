@@ -18,6 +18,11 @@ Bart.print_score()
 
 不能直接访问__name是因为Python解释器对外把__name变量改成了_Student__name，
 所以，仍然可以通过_Student__name来访问__name变量
+
+比如_name，这样的实例变量外部是可以访问的，
+但是，按照约定俗成的规定，当你看到这样的变量时，
+意思就是，“虽然我可以被访问，但是，请把我视为私有变量，
+不要随意访问”
 '''
 Bart.__privatename = 'ha'
 Bart.print_score()
