@@ -1,0 +1,409 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="个人介绍页：工程化投资研究、长期主义、财报分析自动化。" />
+  <meta name="theme-color" content="#f5f1e8" />
+  <title>Zicong | Engineering Long-Term Investing</title>
+  <style>
+    :root {
+      color-scheme: light;
+      --paper: #f7f3ea;
+      --ink: #18211f;
+      --muted: #5d6761;
+      --line: #d9d0c0;
+      --card: #fffaf0;
+      --green: #2f6f5e;
+      --red: #b64f3a;
+      --gold: #b98222;
+      --blue: #326b8f;
+      --shadow: 0 18px 55px rgba(45, 39, 28, 0.12);
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+
+    * { box-sizing: border-box; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      margin: 0;
+      color: var(--ink);
+      background:
+        linear-gradient(90deg, rgba(24, 33, 31, 0.045) 1px, transparent 1px),
+        linear-gradient(0deg, rgba(24, 33, 31, 0.04) 1px, transparent 1px),
+        var(--paper);
+      background-size: 44px 44px;
+      line-height: 1.65;
+    }
+
+    a { color: inherit; text-decoration: none; }
+
+    .shell { width: min(1120px, calc(100% - 36px)); margin: 0 auto; }
+
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      backdrop-filter: blur(18px);
+      background: rgba(247, 243, 234, 0.82);
+      border-bottom: 1px solid rgba(217, 208, 192, 0.7);
+    }
+
+    nav {
+      min-height: 68px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: 760;
+      letter-spacing: 0;
+    }
+
+    .mark {
+      width: 34px;
+      height: 34px;
+      display: grid;
+      place-items: center;
+      color: #fffaf0;
+      background: var(--ink);
+      border-radius: 8px;
+      font-size: 14px;
+    }
+
+    .nav-links { display: flex; align-items: center; gap: 22px; color: var(--muted); font-size: 14px; }
+    .nav-links a:hover { color: var(--ink); }
+
+    .hero {
+      min-height: calc(100vh - 68px);
+      display: grid;
+      grid-template-columns: minmax(0, 1.05fr) minmax(340px, 0.95fr);
+      gap: 46px;
+      align-items: center;
+      padding: 76px 0 58px;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      color: var(--green);
+      font-size: 14px;
+      font-weight: 720;
+      margin-bottom: 18px;
+    }
+
+    .eyebrow::before {
+      content: "";
+      width: 34px;
+      height: 2px;
+      background: var(--green);
+    }
+
+    h1, h2, h3, p { margin-top: 0; }
+
+    h1 {
+      max-width: 840px;
+      margin-bottom: 22px;
+      font-size: clamp(46px, 7vw, 88px);
+      line-height: 0.96;
+      letter-spacing: 0;
+    }
+
+    .lead {
+      max-width: 690px;
+      color: var(--muted);
+      font-size: 20px;
+    }
+
+    .hero-actions { display: flex; flex-wrap: wrap; gap: 14px; margin-top: 32px; }
+
+    .button {
+      min-height: 46px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      padding: 0 18px;
+      border-radius: 8px;
+      border: 1px solid var(--ink);
+      font-weight: 720;
+      transition: transform 0.18s ease, box-shadow 0.18s ease, background 0.18s ease;
+    }
+
+    .button.primary { background: var(--ink); color: var(--card); box-shadow: var(--shadow); }
+    .button:hover { transform: translateY(-2px); }
+
+    .terminal {
+      position: relative;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      overflow: hidden;
+      background: #1b211f;
+      color: #e8e1d3;
+      box-shadow: var(--shadow);
+    }
+
+    .terminal-top {
+      height: 42px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 0 16px;
+      border-bottom: 1px solid rgba(255,255,255,0.1);
+      background: rgba(255,255,255,0.04);
+    }
+
+    .dot { width: 10px; height: 10px; border-radius: 50%; background: var(--red); }
+    .dot:nth-child(2) { background: var(--gold); }
+    .dot:nth-child(3) { background: var(--green); }
+
+    .terminal-body { padding: 24px; }
+
+    .metric-row {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 16px;
+      padding: 16px 0;
+      border-bottom: 1px solid rgba(255,255,255,0.1);
+      font-size: 14px;
+    }
+
+    .metric-row:last-child { border-bottom: 0; }
+    .metric-row strong { color: #fffaf0; font-size: 18px; }
+    .metric-row span { color: #b7c4bd; }
+
+    .mini-chart { margin-top: 22px; height: 190px; display: grid; align-items: end; grid-template-columns: repeat(12, 1fr); gap: 9px; }
+    .bar { border-radius: 5px 5px 0 0; background: linear-gradient(180deg, #e3bc60, #377c67); min-height: 22px; }
+
+    section { padding: 78px 0; border-top: 1px solid rgba(217, 208, 192, 0.78); }
+
+    .section-head {
+      display: grid;
+      grid-template-columns: 0.7fr 1fr;
+      gap: 34px;
+      margin-bottom: 34px;
+    }
+
+    h2 { font-size: clamp(30px, 4vw, 48px); line-height: 1.08; margin-bottom: 0; letter-spacing: 0; }
+    .section-head p { color: var(--muted); font-size: 18px; margin-bottom: 0; }
+
+    .grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
+
+    .card {
+      min-height: 220px;
+      padding: 24px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: rgba(255, 250, 240, 0.76);
+      box-shadow: 0 10px 30px rgba(45, 39, 28, 0.06);
+    }
+
+    .card h3 { font-size: 21px; line-height: 1.25; margin-bottom: 12px; }
+    .card p { color: var(--muted); margin-bottom: 0; }
+
+    .tag {
+      display: inline-flex;
+      align-items: center;
+      height: 28px;
+      padding: 0 10px;
+      margin-bottom: 18px;
+      border-radius: 999px;
+      color: var(--green);
+      background: rgba(47, 111, 94, 0.1);
+      font-size: 13px;
+      font-weight: 720;
+    }
+
+    .split { display: grid; grid-template-columns: 0.95fr 1.05fr; gap: 26px; align-items: stretch; }
+
+    .panel {
+      padding: 28px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: rgba(255, 250, 240, 0.8);
+    }
+
+    .steps { display: grid; gap: 14px; }
+    .step { display: grid; grid-template-columns: 38px 1fr; gap: 14px; align-items: start; }
+    .step-number { width: 38px; height: 38px; border-radius: 8px; display: grid; place-items: center; background: var(--ink); color: var(--card); font-weight: 760; }
+    .step h3 { margin-bottom: 4px; font-size: 18px; }
+    .step p { color: var(--muted); margin-bottom: 0; }
+
+    .quote {
+      font-size: clamp(24px, 3.2vw, 38px);
+      line-height: 1.25;
+      color: var(--ink);
+    }
+
+    .subtle { color: var(--muted); }
+
+    footer { padding: 44px 0 54px; color: var(--muted); border-top: 1px solid rgba(217, 208, 192, 0.78); }
+    .footer-inner { display: flex; justify-content: space-between; gap: 20px; flex-wrap: wrap; }
+
+    @media (max-width: 860px) {
+      .nav-links { display: none; }
+      .hero, .section-head, .split { grid-template-columns: 1fr; }
+      .hero { padding-top: 54px; min-height: auto; }
+      .grid { grid-template-columns: 1fr; }
+      .terminal { order: -1; }
+      .lead { font-size: 18px; }
+    }
+
+    @media (max-width: 520px) {
+      .shell { width: min(100% - 24px, 1120px); }
+      h1 { font-size: 42px; }
+      section { padding: 58px 0; }
+      .card, .panel, .terminal-body { padding: 20px; }
+      .hero-actions .button { width: 100%; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <nav class="shell" aria-label="主导航">
+      <a class="brand" href="#top" aria-label="返回首页">
+        <span class="mark">ZC</span>
+        <span>Zicong</span>
+      </a>
+      <div class="nav-links">
+        <a href="#about">About</a>
+        <a href="#framework">Framework</a>
+        <a href="#agent">Agent</a>
+        <a href="#contact">Contact</a>
+      </div>
+    </nav>
+  </header>
+
+  <main id="top">
+    <section class="hero shell" aria-labelledby="hero-title">
+      <div>
+        <div class="eyebrow">Engineering Long-Term Investing</div>
+        <h1 id="hero-title">用工程化方法，研究长期投资。</h1>
+        <p class="lead">我关注企业所有权、现金流、估值纪律和财报问题清单，也在探索用 AI Agent 把财报阅读变成可复用的研究流水线。</p>
+        <div class="hero-actions">
+          <a class="button primary" href="#framework">看投资框架</a>
+          <a class="button" href="https://github.com/zicong521" rel="noreferrer">GitHub</a>
+        </div>
+      </div>
+
+      <div class="terminal" aria-label="投资研究工作台示意图">
+        <div class="terminal-top"><span class="dot"></span><span class="dot"></span><span class="dot"></span></div>
+        <div class="terminal-body">
+          <div class="metric-row"><span>Research lens</span><strong>Owner mindset</strong></div>
+          <div class="metric-row"><span>Price discipline</span><strong>Margin of safety</strong></div>
+          <div class="metric-row"><span>Review cadence</span><strong>Financial reports</strong></div>
+          <div class="mini-chart" aria-hidden="true">
+            <span class="bar" style="height: 34%"></span>
+            <span class="bar" style="height: 48%"></span>
+            <span class="bar" style="height: 42%"></span>
+            <span class="bar" style="height: 58%"></span>
+            <span class="bar" style="height: 52%"></span>
+            <span class="bar" style="height: 72%"></span>
+            <span class="bar" style="height: 66%"></span>
+            <span class="bar" style="height: 78%"></span>
+            <span class="bar" style="height: 70%"></span>
+            <span class="bar" style="height: 86%"></span>
+            <span class="bar" style="height: 80%"></span>
+            <span class="bar" style="height: 92%"></span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="about">
+      <div class="shell section-head">
+        <h2>一个偏系统化的学习者</h2>
+        <p>我喜欢把复杂问题拆成模型、流程和可验证的问题。相比追逐即时反馈，我更在意长期可复利的能力：读懂业务、理解财报、训练判断，并把这些过程工具化。</p>
+      </div>
+      <div class="shell grid">
+        <article class="card">
+          <span class="tag">Learning</span>
+          <h3>结构化学习</h3>
+          <p>把输入拆成概念、问题、例子和行动，用写作、讲解和项目实践检验理解。</p>
+        </article>
+        <article class="card">
+          <span class="tag">Thinking</span>
+          <h3>第二层次思维</h3>
+          <p>不只看眼前动作，也推演市场、对手和系统会怎样反应，避免被表层叙事带走。</p>
+        </article>
+        <article class="card">
+          <span class="tag">Compounding</span>
+          <h3>反馈系统</h3>
+          <p>把目标变成能持续记录的小行动，让长期主义从口号变成可观察的进展。</p>
+        </article>
+      </div>
+    </section>
+
+    <section id="framework">
+      <div class="shell section-head">
+        <h2>投资框架</h2>
+        <p>这里不是投资建议，而是我的研究方式：把股票看成企业所有权，用现金流和财报验证经营质量，用估值纪律保护长期收益率。</p>
+      </div>
+      <div class="shell grid">
+        <article class="card">
+          <span class="tag">01</span>
+          <h3>股权思维</h3>
+          <p>关注企业经营、利润质量、分红回购和自己持有的长期权益，而不是每天报价的波动。</p>
+        </article>
+        <article class="card">
+          <span class="tag">02</span>
+          <h3>估值与安全边际</h3>
+          <p>好企业也需要好价格。买入前先建立高估、合理和低估的边界，避免情绪最热时追高。</p>
+        </article>
+        <article class="card">
+          <span class="tag">03</span>
+          <h3>财报问题清单</h3>
+          <p>读财报先列问题：利润和现金流是否匹配，资产负债表是否异常，关键科目能否被解释。</p>
+        </article>
+      </div>
+    </section>
+
+    <section id="agent">
+      <div class="shell split">
+        <div class="panel">
+          <p class="quote">我想把投资研究从“手工阅读”推进到“可复用流程”。</p>
+          <p class="subtle">当前探索方向：自动财报分析 Agent。它的价值不在于替代判断，而在于减少重复劳动，让人把注意力放在异常、假设和复核上。</p>
+        </div>
+        <div class="panel steps">
+          <div class="step">
+            <div class="step-number">1</div>
+            <div><h3>监听披露</h3><p>跟踪目标公司的年报、季报、公告和交易所披露。</p></div>
+          </div>
+          <div class="step">
+            <div class="step-number">2</div>
+            <div><h3>解析报表</h3><p>抽取利润表、资产负债表、现金流量表中的关键科目。</p></div>
+          </div>
+          <div class="step">
+            <div class="step-number">3</div>
+            <div><h3>生成问题</h3><p>输出图表和复核清单，提醒现金流、利润质量和异常科目的变化。</p></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="contact">
+      <div class="shell section-head">
+        <h2>交流</h2>
+        <p>如果你也关注长期投资、财报阅读、AI 工具或个人知识系统，欢迎从 GitHub 找到我。这个页面会随着我的研究和项目继续更新。</p>
+      </div>
+      <div class="shell">
+        <a class="button primary" href="https://github.com/zicong521" rel="noreferrer">github.com/zicong521</a>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="shell footer-inner">
+      <span>© 2026 Zicong. Built for GitHub Pages.</span>
+      <span>Content is personal research, not investment advice.</span>
+    </div>
+  </footer>
+</body>
+</html>
